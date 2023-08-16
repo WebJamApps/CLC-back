@@ -6,13 +6,13 @@ export default class Breeze {
   /**
    * Initialize this class to interface with [Breeze API](https://app.breezechms.com/api).
    *
-   * @param  subdomain
+   * @param  SUBDOMAIN
    * Enter your Breeze subdomain.
    *
    * (_You can find this in your web address bar when logged
    * into Breeze: `YOURSUBDOMAIN.breezechms.com`_)
    *
-   * @param  key
+   * @param  APIKEY
    * Enter your unique/secret API key.
    *
    * (_You can find this on the `Extensions` page of your Breeze account:
