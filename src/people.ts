@@ -1,4 +1,5 @@
 import { AxiosInstance } from 'axios';
+import { breeze } from './breeze-chms';
 
 // Helper functions, types and defaults
 const BREEZE_FILES_URL = 'https://files.breezechms.com/';
@@ -243,6 +244,10 @@ export default class People {
 
     return profile;
   }
+  ppl = async () => {
+    const person = await breeze.people.get('PERSON_ID'); //TODO
+    console.log(person.id);
+}
   /** Get individual person record in your Breeze database with profile fields formatted and merged in.
    *
    * [View docs for `people.get()`](https://github.com/Notebird-App/breeze-chms/blob/main/docs/People.md#peopleget) */
@@ -253,6 +258,11 @@ export default class People {
     ]);
     return this.formatPersonProfile({ person, fields, lookupFields });
   }
+
+  pplList = async () => {
+    const people = await breeze.people.list({ limit: 5, fields: ['name', 'email']}); //TODO
+    console.log(people);
+}
   /** List people in your Breeze database with profile fields formatted and merged in.
    *
    * [View docs for `people.list()`](https://github.com/Notebird-App/breeze-chms/blob/main/docs/People.md#peoplelist) */
@@ -268,6 +278,29 @@ export default class People {
     ]);
     return people.map((person) => this.formatPersonProfile({ person, fields, lookupFields }));
   }
+
+  // pplUpdate = async () => {
+  //   return Promise.resolve({message: 'update not supported at this time'});
+  //   await breeze.people.update('PERSON_ID', { //TODO
+  //     name: {
+  //       first: '',
+  //       last: ''
+  //     },
+  //     birthday: '',
+  //     email: '',
+  //     phones: {
+  //       mobile: '',
+  //       home: ''
+  //     },
+  //     address: {
+  //       street1: '',
+  //       city: '',
+  //       state: '',
+  //       zip: ''
+  //     }
+
+  //   })
+  // }
   /** Update a person in your Breeze database with profile fields matched and formatted.
    *
    * [View docs for `people.update()`](https://github.com/Notebird-App/breeze-chms/blob/main/docs/People.md#peopleupdate) */
@@ -823,7 +856,7 @@ export interface ApiGetParams {
    * */
   details?: 1 | 0;
 }
-export interface GetParams<L extends Lookup = never> {
+export interface GetParams<L extends Lookup = never> { //TODO
   /**
    * Array of custom fields to be matched up and included with each person result.
    *
@@ -832,6 +865,9 @@ export interface GetParams<L extends Lookup = never> {
    *
    * _(ex. ['Service', 'Room Number'])_
    * */
+  id?: string
+  name?: string
+  limit?: number
   fields?: readonly L[];
 }
 // List

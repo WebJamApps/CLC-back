@@ -1,8 +1,8 @@
 import { toMatchOneOf, toMatchShapeOf } from 'jest-to-match-shape-of';
 expect.extend({ toMatchOneOf, toMatchShapeOf });
 
-import Breeze from '../breeze';
-import { AddParams, UpdateParams, Person } from '../people';
+import Breeze from '../src/breeze';
+import { AddParams, UpdateParams, Person } from '../src/people';
 
 test("Throws 'Permission Denied' Error", async () => {
   const invalidBreeze = new Breeze('invalid', 'invalid');
@@ -12,7 +12,7 @@ test("Throws 'Permission Denied' Error", async () => {
 });
 
 // Test config
-const breeze = new Breeze(process.env.subdomain as string, process.env.key as string);
+const breeze = new Breeze(process.env.SUBDOMAIN as string, process.env.KEY as string);
 let PERSON_ID = '';
 const ADD_PARAMS: AddParams = {
   name: { first: 'William', last: 'Frost', nick: 'Bill', middle: 'Matthew' },
@@ -110,7 +110,7 @@ test('Add person', async () => {
 test('Update person', async () => {
   await breeze.people.update(PERSON_ID, UPDATE_PARAMS);
   await expect(
-    breeze.people.get(PERSON_ID, { fields: ['service', 'roomNumber', 'notFound'] }),
+    breeze.people.get(PERSON_ID, { fields: ['', ''] }),
   ).resolves.toStrictEqual({ ...UPDATE_PERSON, id: PERSON_ID });
 });
 

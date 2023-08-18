@@ -1,8 +1,7 @@
 import { toMatchOneOf, toMatchShapeOf } from 'jest-to-match-shape-of';
 expect.extend({ toMatchOneOf, toMatchShapeOf });
-
-import Breeze from '../breeze';
-import { AccountSummary, AccountLog, AccountLogDetail } from '../account';
+import Breeze from '../src/breeze'
+import { AccountSummary, AccountLog, AccountLogDetail } from '../src/account';
 
 test("Throws 'Permission Denied' Error", async () => {
   const invalidBreeze = new Breeze('invalid', 'invalid');
@@ -12,7 +11,7 @@ test("Throws 'Permission Denied' Error", async () => {
 });
 
 // Test config
-const breeze = new Breeze(process.env.subdomain as string, process.env.key as string);
+const breeze = new Breeze(process.env.SUBDOMAIN as string, process.env.KEY as string);
 const ACCOUNT_SUMMARY: AccountSummary = {
   id: 'ORG_ID',
   name: 'ORG_NAME',
