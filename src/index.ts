@@ -3,9 +3,8 @@ import Router from '@koa/router';
 import render from 'koa-ejs';
 import path from 'path';
 import Debug from 'debug';
-import axios from 'axios';
 import dotenv from 'dotenv';
-import Breeze from 'breeze-chms';
+import Breeze from './breeze';
 
 dotenv.config();
 const debug = Debug('CLC-back:index');
@@ -20,40 +19,19 @@ render(app, {
     debug: true
 })
 
-// router.get('/members', async (ctx) => {
-//     try {
-//         const breezeKey = process.env.API_KEY;
-//         const breezeUrl = 'https://churchoftommy.breezechms.com/people';
-//         const res = await axios.get(breezeUrl, {
-//             headers: {
-//                 'Authorization': `Bearer ${breezeKey}`,
-//                 'Accept': 'application/json',
-//             },
-//         });    
-//         ctx.body = res.data;
-//         ctx.status = res.status;
-//     } catch (error:any) {
-//         ctx.status = error.res ? error.res.status : 500;
-//         ctx.body = { error: 'An error occured' };
-//     }
-// })
-
 router.get('/members', async (ctx) => {
     try {
-        const breeze = new Breeze('SUB_DOMAIN', 'API_KEY');
-        const people = await breeze.people.get('PERSON_ID');
+        const subDomain = (process.env.SUB_DOMAIN || '');
+        const breezeKey = (process.env.API_KEY || '');
+        const breeze = new Breeze(subDomain, breezeKey);
+        const people = await breeze.people.list({ limit: 5 });
         ctx.body = people;
+        ctx.status = 200;
     } catch (error:any) {
-        console.error('Error fetching data:', error);
-        ctx.staus = 500;
-        ctx.body = 'Internal Server Error';
+        ctx.status = error.res ? error.res.status : 500;
+        ctx.body = { error: 'An error occured' };
     }
-});
-
-router.get('status', '/health-check', (ctx) => {
-    ctx.status = 200;
-    ctx.body   = {message: 'success'};
-  });
+})
 
 app.use(router.routes())
 .use(router.allowedMethods());
@@ -63,3 +41,5 @@ app.listen(port, async () => {
     debug('running in debug mode');
     console.log(`Magic is happening on port ${port}`);
 })
+
+
