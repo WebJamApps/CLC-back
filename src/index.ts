@@ -5,11 +5,25 @@ import path from 'path';
 import Debug from 'debug';
 import dotenv from 'dotenv';
 import Breeze from './breeze';
+import cors from '@koa/cors';
+import enforceHttps from 'koa-sslify';
+import serve from 'koa-static';
 
 dotenv.config();
 const debug = Debug('CLC-back:index');
+
+const corsOptions= {
+    origin: JSON.parse(process.env.AllowUrl || '{}').urls,
+    credentials: true,
+    optionsSuccessStatus: 200,
+};
+
 const app = new Koa();
 const router = new Router();
+
+if (process.env.NODE_ENV === 'production' && process.env.BUILD_BRANCH === 'master') app.use(enforceHttps({ port: 4444 })) //unsure
+app.use(serve(path.normalize(path.join(__dirname, '../CollegeLutheran/dist')))); //TODO
+app.use(cors(corsOptions));
 
 render(app, {
     root: path.join(__dirname, '../CLC-back/dist'),
