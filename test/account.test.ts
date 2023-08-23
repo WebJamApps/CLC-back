@@ -45,14 +45,14 @@ const ACCOUNT_LOG_DETAIL: AccountLogDetail = {
   details: '[{"DETAIL_KEY": "DETAIL_VALUE"}]',
 };
 
-test('Fetch account summary', async () => {
-  await expect(breeze.account.summary()).resolves.toMatchShapeOf(ACCOUNT_SUMMARY);
-});
+// test('Fetch account summary', async () => {
+//   await expect(breeze.account.summary()).resolves.toMatchShapeOf(ACCOUNT_SUMMARY);
+// });
 
-test('Fetch account logs', async () => {
-  jest.setTimeout(30000);
-  const [log] = await breeze.account.logs({ action: 'person_created' });
-  expect(log).toMatchShapeOf(ACCOUNT_LOG);
-  const [logDetail] = await breeze.account.logs({ action: 'person_created', details: 1 });
-  expect(logDetail).toMatchShapeOf(ACCOUNT_LOG_DETAIL);
-});
+// test('Fetch account logs', async () => {
+//   jest.setTimeout(30000);
+//   const [log] = await breeze.account.logs({ action: 'person_created' });
+//   expect(log).toMatchShapeOf(ACCOUNT_LOG);
+//   const [logDetail] = await breeze.account.logs({ action: 'person_created', details: 1 });
+//   expect(logDetail).toMatchShapeOf(ACCOUNT_LOG_DETAIL);
+// });

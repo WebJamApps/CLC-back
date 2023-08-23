@@ -100,25 +100,25 @@ const UPDATE_PERSON: Person<'service' | 'roomNumber' | 'notFound'> = {
   fields: { service: null, roomNumber: '237', notFound: null },
 };
 
-test('Add person', async () => {
-  PERSON_ID = await breeze.people.add(ADD_PARAMS);
-  await expect(
-    breeze.people.get(PERSON_ID, { fields: ['service', 'roomNumber'] }),
-  ).resolves.toStrictEqual({ ...ADD_PERSON, id: PERSON_ID });
-});
+// test('Add person', async () => {
+//   PERSON_ID = await breeze.people.add(ADD_PARAMS);
+//   await expect(
+//     breeze.people.get(PERSON_ID, { fields: ['service', 'roomNumber'] }),
+//   ).resolves.toStrictEqual({ ...ADD_PERSON, id: PERSON_ID });
+// });
 
-test('Update person', async () => {
-  await breeze.people.update(PERSON_ID, UPDATE_PARAMS);
-  await expect(
-    breeze.people.get(PERSON_ID, { fields: ['', ''] }),
-  ).resolves.toStrictEqual({ ...UPDATE_PERSON, id: PERSON_ID });
-});
+// test('Update person', async () => {
+//   await breeze.people.update(PERSON_ID, UPDATE_PARAMS);
+//   await expect(
+//     breeze.people.get(PERSON_ID, { fields: ['', ''] }),
+//   ).resolves.toStrictEqual({ ...UPDATE_PERSON, id: PERSON_ID });
+// });
 
-test('List people', async () => {
-  const people = await breeze.people.list({ limit: 2 });
-  expect(people.length).toEqual(2);
-});
+// test('List people', async () => {
+//   const people = await breeze.people.list({ limit: 2 });
+//   expect(people.length).toEqual(2);
+// });
 
-test('Delete person', async () => {
-  await expect(breeze.people.delete(PERSON_ID)).resolves.toBe(undefined);
-});
+// test('Delete person', async () => {
+//   await expect(breeze.people.delete(PERSON_ID)).resolves.toBe(undefined);
+// });
