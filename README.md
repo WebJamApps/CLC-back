@@ -92,3 +92,12 @@ This project uses [SemVer](http://semver.org/) for versioning. For the versions 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+<h3>Get started</h3>
+Create an index.ts file and build the server. Add in backendUrl to the .env file and give it a value of the backend localhost. 
+
+<h3>Run server</h3>
+<b>npm start</b> starts the server at localhost:4444<br>
+<br>
+<b>npm run start:debug</b> also starts the node debugger, which allows you to use Chrome browser to debug.
+You must also run web-jam-back in order to render the page.

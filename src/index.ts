@@ -30,7 +30,6 @@ const router = new Router();
 if (process.env.NODE_ENV === 'production' && process.env.BUILD_BRANCH === 'master') app.use(enforceHttps({ port: 4444 })) //unsure
 app.use(serve(path.normalize(path.join(__dirname, '../CollegeLutheran/dist'))));
 app.use(cors(corsOptions));
-// mongoose?
 app.use(helmet({ crossOriginEmbedderPolicy: false }));
 app.use(helmet.contentSecurityPolicy({
     directives: {

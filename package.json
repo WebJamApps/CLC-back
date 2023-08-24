@@ -19,7 +19,7 @@
     "clean": "rm -rf build",
     "build": "npm run clean && tsc",
     "prepare": "npm run build",
-    "start:debug": "rm -rf build && tsc && npm-run-all -p start",
+    "start:debug": "rm -rf build && tsc && npm-run-all -p ts-start ts-watch",
     "prepublishOnly": "npm run test",
     "start": "node build/index.js",
     "dev": "nodemon index.js",
@@ -57,7 +57,8 @@
     "koa-morgan": "^1.0.1",
     "koa-send": "^5.0.1",
     "koa-sslify": "^5.0.1",
-    "koa-static": "^5.0.0"
+    "koa-static": "^5.0.0",
+    "mongoose": "^7.4.4"
   },
   "devDependencies": {
     "@tsconfig/node14": "^14.1.0",
