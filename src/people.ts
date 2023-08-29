@@ -1,4 +1,5 @@
 import { AxiosInstance } from 'axios';
+import Breeze from 'breeze-chms';
 
 // Helper functions, types and defaults
 const BREEZE_FILES_URL = 'https://files.breezechms.com/';
@@ -252,6 +253,10 @@ export default class People {
       this.profileFields({ fields }),
       this.apiGet(id, { details: 1 }),
     ]);
+    const subDomain = (process.env.SUB_DOMAIN || '');
+    const breezeKey = (process.env.API_KEY || '');
+    const breeze = new Breeze(subDomain, breezeKey);
+    await breeze.people.get('PERSON_ID', { fields: [] });
     return this.formatPersonProfile({ person, fields, lookupFields });
   }
 
@@ -268,6 +273,10 @@ export default class People {
       this.profileFields({ fields }),
       this.apiList({ details: 1, filter_json, limit, offset }),
     ]);
+    const subDomain = (process.env.SUB_DOMAIN || '');
+    const breezeKey = (process.env.API_KEY || '');
+    const breeze = new Breeze(subDomain, breezeKey);
+    await breeze.people.list({ limit: 5, fields: [] });
     return people.map((person) => this.formatPersonProfile({ person, fields, lookupFields }));
   }
 
@@ -550,7 +559,7 @@ export default class People {
      * `people.get()` as it returns a result in a more consumable format.
      *
      * [View docs for `people.api.get()`](https://github.com/Notebird-App/breeze-chms/blob/main/docs/People.md#peopleapiget) */
-    get: this.apiGet,
+     get: this.apiGet,
     /** Retrieve a list of people in your Breeze database.
      *
      * **NOTE:** For most cases, it's recommended to instead use
