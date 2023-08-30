@@ -12,7 +12,6 @@ import helmet from 'koa-helmet';
 import bodyParser from 'koa-bodyparser';
 import morgan from 'koa-morgan';
 import send from 'koa-send';
-import ReadCSV from './ReadCSV';
 
 dotenv.config();
 const debug = Debug('CLC-back:index');
@@ -23,7 +22,6 @@ const corsOptions= {
     optionsSuccessStatus: 200,
 };
 
-const readCsv = new ReadCSV();
 const app = new Koa();
 const router = new Router();
 
@@ -87,13 +85,6 @@ router.get('/members', async (ctx) => {
         ctx.body = { error: 'An error occured' };
     }
 })
-// app.use(async (ctx) => {
-//     ctx.status = 404;
-//     ctx.body = 'Not Found';
-// });
-// app.use(async (ctx) => {
-//     ctx.throw(500, 'error');
-// });
 
 app.use(router.routes())
 .use(router.allowedMethods());
@@ -103,8 +94,6 @@ const port = process.env.PORT || 4444;
 app.listen(port, async () => {
     debug('running in debug mode');
     console.log(`Magic is happening on port ${port}`);
-    const result = await readCsv.run();
-    debug(result);
 });
 }
 debug(`isTTY?: ${process.stderr.isTTY}`);
