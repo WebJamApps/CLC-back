@@ -36,11 +36,11 @@
     "type": "git",
     "url": "https://github.com/WebJamApps/CLC-back.git"
   },
-  "author": "Chris Doe <cdoe@notebird.app> (notebird.app)",
+  "author": "WebJamApps",
   "license": "MIT",
   "private": false,
   "engines": {
-    "node": ">=18.17.1",
+    "node": ">=18.17.1 <19",
     "npm": ">=9.5.1 <10"
   },
   "engineStrict": true,
