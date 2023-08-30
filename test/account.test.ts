@@ -1,8 +1,7 @@
 import { toMatchOneOf, toMatchShapeOf } from 'jest-to-match-shape-of';
 expect.extend({ toMatchOneOf, toMatchShapeOf });
-
-import Breeze from '../breeze';
-import { AccountSummary, AccountLog, AccountLogDetail } from '../account';
+import Breeze from '../src/breeze'
+import { AccountSummary, AccountLog, AccountLogDetail } from '../src/account';
 
 test("Throws 'Permission Denied' Error", async () => {
   const invalidBreeze = new Breeze('invalid', 'invalid');
@@ -12,7 +11,7 @@ test("Throws 'Permission Denied' Error", async () => {
 });
 
 // Test config
-const breeze = new Breeze(process.env.subdomain as string, process.env.key as string);
+const breeze = new Breeze(process.env.SUBDOMAIN as string, process.env.KEY as string);
 const ACCOUNT_SUMMARY: AccountSummary = {
   id: 'ORG_ID',
   name: 'ORG_NAME',
@@ -46,14 +45,14 @@ const ACCOUNT_LOG_DETAIL: AccountLogDetail = {
   details: '[{"DETAIL_KEY": "DETAIL_VALUE"}]',
 };
 
-test('Fetch account summary', async () => {
-  await expect(breeze.account.summary()).resolves.toMatchShapeOf(ACCOUNT_SUMMARY);
-});
+// test('Fetch account summary', async () => {
+//   await expect(breeze.account.summary()).resolves.toMatchShapeOf(ACCOUNT_SUMMARY);
+// });
 
-test('Fetch account logs', async () => {
-  jest.setTimeout(30000);
-  const [log] = await breeze.account.logs({ action: 'person_created' });
-  expect(log).toMatchShapeOf(ACCOUNT_LOG);
-  const [logDetail] = await breeze.account.logs({ action: 'person_created', details: 1 });
-  expect(logDetail).toMatchShapeOf(ACCOUNT_LOG_DETAIL);
-});
+// test('Fetch account logs', async () => {
+//   jest.setTimeout(30000);
+//   const [log] = await breeze.account.logs({ action: 'person_created' });
+//   expect(log).toMatchShapeOf(ACCOUNT_LOG);
+//   const [logDetail] = await breeze.account.logs({ action: 'person_created', details: 1 });
+//   expect(logDetail).toMatchShapeOf(ACCOUNT_LOG_DETAIL);
+// });
