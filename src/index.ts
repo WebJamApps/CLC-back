@@ -24,8 +24,9 @@ const corsOptions= {
 
 const app = new Koa();
 const router = new Router();
+const port = process.env.PORT ? Number(process.env.PORT) : 4444;
 
-if (process.env.NODE_ENV === 'production' && process.env.BUILD_BRANCH === 'master') app.use(enforceHttps({ port: 4444 }))
+if (process.env.NODE_ENV === 'production' && process.env.BUILD_BRANCH === 'master') app.use(enforceHttps({ port }))
 app.use(serve(path.normalize(path.join(__dirname, '../CollegeLutheran/dist'))));
 app.use(cors(corsOptions));
 app.use(helmet({ crossOriginEmbedderPolicy: false }));
@@ -90,7 +91,6 @@ app.use(router.routes())
 .use(router.allowedMethods());
 
 if (process.env.NODE_ENV !== 'test') {
-const port = process.env.PORT || 4444;
 app.listen(port, async () => {
     debug('running in debug mode');
     console.log(`Magic is happening on port ${port}`);
