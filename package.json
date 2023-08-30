@@ -1,52 +1,84 @@
 {
-  "name": "breeze-chms",
-  "version": "0.2.6",
+  "name": "clc-back",
+  "version": "1.0.0",
   "description": "Provides convenient access to the Breeze REST API - https://app.breezechms.com/api.",
   "keywords": [
     "breeze",
-    "chms"
+    "chms",
+    "Koa",
+    "Node"
   ],
   "scripts": {
     "test": "jest --config jestconfig.json",
     "test-watch": "jest --config jestconfig.json --watch",
+    "test:jest": "jest --config jestconfig.json --runInBand",
+    "test:jest-u": "npm run test:jest -- -u",
+    "ts-start": "DEBUG=CLC-back:* nodemon --trace-deprecation build/index.js",
+    "ts-watch": "tsc -w",
     "watch": "tsc --watch",
     "clean": "rm -rf build",
     "build": "npm run clean && tsc",
     "prepare": "npm run build",
-    "prepublishOnly": "npm run test"
+    "start:debug": "rm -rf build && tsc && npm-run-all -p ts-start ts-watch",
+    "prepublishOnly": "npm run test",
+    "start": "node build/index.js",
+    "dev": "nodemon index.js",
+    "rmrf": "rm -rf build && rm -rf CollegeLutheran && rm -rf coverage",
+    "build:front": "./postinstallFront.sh && rm -rf ./CollegeLutheran/src && rm -rf ./CollegeLutheran/test",
+    "postinstall": "npm run rmrf && tsc && npm run build:front"
   },
-  "main": "build/breeze.js",
-  "types": "build/breeze.d.ts",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
   "files": [
     "build/**/*"
   ],
-  "homepage": "https://github.com/notebird-app/breeze-chms",
-  "bugs": {
-    "url": "https://github.com/notebird-app/breeze-chms/issues",
-    "email": "support@notebird.dev"
-  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/notebird-app/breeze-chms.git"
+    "url": "https://github.com/WebJamApps/CLC-back.git"
   },
   "author": "Chris Doe <cdoe@notebird.app> (notebird.app)",
   "license": "MIT",
   "private": false,
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=18.17.1",
+    "npm": ">=9.5.1 <10"
   },
   "engineStrict": true,
   "dependencies": {
-    "axios": "^1.2.2"
+    "@koa/cors": "^4.0.0",
+    "@koa/router": "^12.0.0",
+    "axios": "^1.4.0",
+    "breeze-chms": "^0.2.6",
+    "csvtojson": "^2.0.10",
+    "koa": "^2.14.2",
+    "koa-bodyparser": "^4.4.1",
+    "koa-ejs": "^4.3.0",
+    "koa-helmet": "^7.0.2",
+    "koa-morgan": "^1.0.1",
+    "koa-send": "^5.0.1",
+    "koa-sslify": "^5.0.1",
+    "koa-static": "^5.0.0",
+    "mongoose": "^7.4.4"
   },
   "devDependencies": {
-    "@tsconfig/node14": "^1.0.3",
-    "@types/jest": "^29.2.5",
-    "dotenv": "^16.0.3",
-    "jest": "^29.3.1",
+    "@tsconfig/node14": "^14.1.0",
+    "@types/debug": "^4.1.8",
+    "@types/jest": "^29.5.3",
+    "@types/koa": "^2.13.8",
+    "@types/koa__cors": "^4.0.0",
+    "@types/koa__router": "^12.0.0",
+    "@types/koa-bodyparser": "^4.3.10",
+    "@types/koa-ejs": "^4.3.0",
+    "@types/koa-morgan": "^1.0.5",
+    "@types/koa-sslify": "^4.0.3",
+    "@types/koa-static": "^4.0.2",
+    "dotenv": "^16.3.1",
+    "jest": "^29.6.2",
     "jest-to-match-shape-of": "^1.3.2",
+    "nodemon": "^2.0.21",
+    "npm-run-all": "^4.1.5",
     "prettier": "^2.8.2",
-    "ts-jest": "^29.0.3",
-    "typescript": "^4.9.4"
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.1.6"
   }
 }

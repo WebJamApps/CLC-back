@@ -4,6 +4,7 @@
     "declaration": true,
     "outDir": "./build"
   },
-  "include": ["src"],
+  "rootDir": "./src",                       /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
+  "include": ["src", "__tests__"],
   "exclude": ["node_modules", "**/__tests__/*"]
 }

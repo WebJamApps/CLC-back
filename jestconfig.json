@@ -5,5 +5,11 @@
   "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
   "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
   "testEnvironment": "node",
-  "setupFiles": ["dotenv/config"]
+  "setupFiles": ["dotenv/config"],
+  "testEnvironmentOptions":{
+    "url": "http://localhost/"
+  },
+  "roots": ["<rootDir>/test"],
+  "bail": true,
+  "verbose": true
 }
