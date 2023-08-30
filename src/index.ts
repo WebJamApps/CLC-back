@@ -27,7 +27,7 @@ const readCsv = new ReadCSV();
 const app = new Koa();
 const router = new Router();
 
-if (process.env.NODE_ENV === 'production' && process.env.BUILD_BRANCH === 'master') app.use(enforceHttps({ port: 4444 })) //unsure
+if (process.env.NODE_ENV === 'production' && process.env.BUILD_BRANCH === 'master') app.use(enforceHttps({ port: 4444 }))
 app.use(serve(path.normalize(path.join(__dirname, '../CollegeLutheran/dist'))));
 app.use(cors(corsOptions));
 app.use(helmet({ crossOriginEmbedderPolicy: false }));
@@ -56,18 +56,12 @@ router.post('/submit', (ctx) => {
     ctx.body = 'Successfully submitted JSON data'
 });
 app.use(morgan('tiny'));
-// routes(app);
+// // routes(app);
 router.get(':splat*', async (ctx) => {
     const indexPath = path.normalize(path.join(__dirname, '../CollegeLutheran/dist/index.html'));
     await send(ctx, indexPath);
 });
-app.use(async (ctx) => {
-    ctx.status = 404;
-    ctx.body = 'Not Found';
-});
-app.use(async (ctx) => {
-    ctx.throw(500, 'error');
-});
+
 app.on('error', (err) => {
     console.log(err);
 });
@@ -93,6 +87,13 @@ router.get('/members', async (ctx) => {
         ctx.body = { error: 'An error occured' };
     }
 })
+// app.use(async (ctx) => {
+//     ctx.status = 404;
+//     ctx.body = 'Not Found';
+// });
+// app.use(async (ctx) => {
+//     ctx.throw(500, 'error');
+// });
 
 app.use(router.routes())
 .use(router.allowedMethods());
